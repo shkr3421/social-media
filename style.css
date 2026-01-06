@@ -1,0 +1,52 @@
+body {
+  background-color: #f0f2f5;
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  background: linear-gradient(90deg, #4f46e5, #6366f1);
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.search-box {
+  width: 350px;
+}
+
+.nav-icon {
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+}
+
+.main-content {
+  margin-top: 70px;
+}
+
+.sidebar {
+  background: white;
+  min-height: 100vh;
+  padding-top: 20px;
+}
+
+.feed {
+  padding-top: 20px;
+}
+
+.post-actions span {
+  cursor: pointer;
+  color: #555;
+}
+
+.post-actions span:hover {
+  color: #4f46e5;
+}
+
+.card img {
+  max-height: 450px;
+  object-fit: cover;
+}
+
