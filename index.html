@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Socially</title>
 
+  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
@@ -27,7 +28,6 @@
       color: white !important;
       font-weight: 500;
       margin-right: 14px;
-      cursor: pointer;
     }
 
     .main-content {
@@ -52,21 +52,38 @@
     .post-actions span {
       cursor: pointer;
       color: #555;
-      margin-right: 15px;
+      margin-right: 18px;
+      user-select: none;
     }
 
     .post-actions span:hover {
       color: #4f46e5;
     }
 
+    /* ✅ ONLY NEW STYLE ADDED */
+    .like-btn.liked {
+      color: red;
+      font-weight: bold;
+    }
+
     .sidebar {
       background: white;
       padding: 15px;
       border-radius: 10px;
+      position: sticky;
+      top: 100px;
+    }
+
+    canvas {
+      width: 100%;
+      max-height: 300px;
+      display: none;
+      border-radius: 10px;
+      background: #f0f2f5;
     }
 
     section {
-      scroll-margin-top: 100px; /* fixes fixed navbar overlap */
+      scroll-margin-top: 100px;
     }
   </style>
 </head>
@@ -80,47 +97,37 @@
       <i class="bi bi-people-fill"></i> Socially
     </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarMain">
-
-      <!-- LEFT NAV -->
+    <div class="collapse navbar-collapse show">
       <ul class="navbar-nav me-auto">
         <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="#explore">Explore</a></li>
-        <li class="nav-item">
-            <a class="nav-link" href="message.html">Messages</a>
-        </li>
-
+        <li class="nav-item"><a class="nav-link" href="messages.html">Messages</a></li>
         <li class="nav-item"><a class="nav-link" href="#bookmarks">Bookmarks</a></li>
       </ul>
 
-      <!-- SEARCH -->
       <form class="d-flex me-3">
         <input class="form-control form-control-sm" placeholder="Search users or posts">
       </form>
 
-      <!-- RIGHT NAV -->
+      <!-- LOGIN / SIGNUP RESTORED -->
+      <button class="btn btn-outline-light btn-sm me-2"
+              onclick="alert('Login coming soon')">Login</button>
+      <button class="btn btn-light btn-sm me-3"
+              onclick="alert('Signup coming soon')">Sign Up</button>
+
       <ul class="navbar-nav align-items-center">
-        <li class="nav-item me-2">
-          <button class="btn btn-outline-light btn-sm" onclick="alert('Login coming soon')">Login</button>
-        </li>
-        <li class="nav-item me-3">
-          <button class="btn btn-light btn-sm" onclick="alert('Signup coming soon')">Sign Up</button>
-        </li>
         <li class="nav-item me-3">
           <a class="nav-link" onclick="alert('🔔 You have new notifications')">
             <i class="bi bi-bell"></i>
           </a>
         </li>
         <li class="nav-item">
-          <img src="https://www.citypng.com/public/uploads/preview/hd-man-user-illustration-icon-transparent-png-701751694974843ybexneueic.png" class="avatar">
+          <img src="https://www.citypng.com/public/uploads/preview/hd-man-user-illustration-icon-transparent-png-701751694974843ybexneueic.png"
+               class="avatar">
         </li>
       </ul>
-
     </div>
+
   </div>
 </nav>
 
@@ -129,138 +136,228 @@
   <div class="row justify-content-center">
 
     <!-- FEED -->
-    <div class="col-md-8">
+    <div class="col-md-7">
 
-      <!-- HOME / EXPLORE -->
+      <!-- HOME -->
       <section id="home">
-  <h4>Home</h4>
+        <h4>Home</h4>
 
-  <!-- CREATE POST (RESTORED) -->
-  <div class="card mb-3">
-    <div class="card-body">
-      <input class="form-control mb-2" placeholder="What's on your mind?">
-      <div class="d-flex justify-content-end">
-        <button class="btn btn-primary btn-sm"
-                onclick="alert('Post feature coming soon')">
-          Post
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
+        <!-- CREATE POST -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <input id="postText" class="form-control mb-2" placeholder="What's on your mind?">
+            <input id="imageInput" type="file" accept="image/*" class="form-control mb-2">
+            <canvas id="imageCanvas" width="600" height="300"></canvas>
 
+            <div class="d-flex justify-content-end mt-2">
+              <button class="btn btn-primary btn-sm" onclick="createPost()">Post</button>
+            </div>
+          </div>
+        </div>
+      </section>
 
+      <!-- EXPLORE -->
       <section id="explore">
         <h4>Explore</h4>
 
-        <!-- POST 1 -->
-        <div class="card mb-3">
-          <div class="card-body">
-            <strong>Nature Lover</strong>
-            <p>Peaceful mountain vibes 🌄</p>
-            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=60" class="post-image">
-            <div class="post-actions mt-2">
-              <span onclick="alert('Liked')">❤️ Like</span>
-              <span onclick="alert('Comment soon')">💬 Comment</span>
-              <span onclick="alert('Shared')">🔁 Share</span>
-            </div>
-          </div>
-        </div>
+        <div id="feed">
 
-        <!-- POST 2 -->
-        <div class="card mb-3">
-          <div class="card-body">
-            <strong>Puppy World</strong>
-            <p>Cute white puppy 🤍🐶</p>
-            <img src="https://images.unsplash.com/photo-1601758125946-6ec2ef64daf8?auto=format&fit=crop&w=900&q=60" class="post-image">
-            <div class="post-actions mt-2">
-              <span onclick="alert('Liked')">❤️ Like</span>
-              <span onclick="alert('Comment soon')">💬 Comment</span>
-              <span onclick="alert('Shared')">🔁 Share</span>
+          <!-- POST 1 -->
+          <div class="card mb-3">
+            <div class="card-body">
+              <strong>Nature Lover</strong>
+              <p>Peaceful mountain vibes 🌄</p>
+              <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=60" class="post-image">
+              <div class="post-actions mt-2">
+                <span class="like-btn" onclick="toggleLike(this)">
+                  ❤️ <span class="like-text">Like</span> (<span class="like-count">0</span>)
+                </span>
+                <span onclick="alert('Comment soon')">💬 Comment</span>
+                <span onclick="alert('Shared')">🔁 Share</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- POST 3 -->
-        <div class="card mb-3">
-          <div class="card-body">
-            <strong>Code Life</strong>
-            <p>Late night coding 💻🔥</p>
-            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=60" class="post-image">
-            <div class="post-actions mt-2">
-              <span onclick="alert('Liked')">❤️ Like</span>
-              <span onclick="alert('Comment soon')">💬 Comment</span>
-              <span onclick="alert('Shared')">🔁 Share</span>
+          <!-- POST 2 -->
+          <div class="card mb-3">
+            <div class="card-body">
+              <strong>Puppy World</strong>
+              <p>Cute white puppy 🤍🐶</p>
+              <img src="https://images.unsplash.com/photo-1601758125946-6ec2ef64daf8?auto=format&fit=crop&w=900&q=60" class="post-image">
+              <div class="post-actions mt-2">
+                <span class="like-btn" onclick="toggleLike(this)">
+                  ❤️ <span class="like-text">Like</span> (<span class="like-count">0</span>)
+                </span>
+                <span onclick="alert('Comment soon')">💬 Comment</span>
+                <span onclick="alert('Shared')">🔁 Share</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- POST 4 -->
-        <div class="card mb-3">
-          <div class="card-body">
-            <strong>Forest Walks</strong>
-            <p>Green forest vibes 🌲</p>
-            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=60" class="post-image">
-            <div class="post-actions mt-2">
-              <span onclick="alert('Liked')">❤️ Like</span>
-              <span onclick="alert('Comment soon')">💬 Comment</span>
-              <span onclick="alert('Shared')">🔁 Share</span>
+          <!-- POST 3 -->
+          <div class="card mb-3">
+            <div class="card-body">
+              <strong>Code Life</strong>
+              <p>Late night coding 💻🔥</p>
+              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=60" class="post-image">
+              <div class="post-actions mt-2">
+                <span class="like-btn" onclick="toggleLike(this)">
+                  ❤️ <span class="like-text">Like</span> (<span class="like-count">0</span>)
+                </span>
+                <span onclick="alert('Comment soon')">💬 Comment</span>
+                <span onclick="alert('Shared')">🔁 Share</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- POST 5 -->
-        <div class="card mb-3">
-          <div class="card-body">
-            <strong>Dog Lovers</strong>
-            <p>Dogs make everything better 🐕</p>
-            <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=60" class="post-image">
-            <div class="post-actions mt-2">
-              <span onclick="alert('Liked')">❤️ Like</span>
-              <span onclick="alert('Comment soon')">💬 Comment</span>
-              <span onclick="alert('Shared')">🔁 Share</span>
+          <!-- POST 4 -->
+          <div class="card mb-3">
+            <div class="card-body">
+              <strong>Forest Walks</strong>
+              <p>Green forest vibes 🌲</p>
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=60" class="post-image">
+              <div class="post-actions mt-2">
+                <span class="like-btn" onclick="toggleLike(this)">
+                  ❤️ <span class="like-text">Like</span> (<span class="like-count">0</span>)
+                </span>
+                <span onclick="alert('Comment soon')">💬 Comment</span>
+                <span onclick="alert('Shared')">🔁 Share</span>
+              </div>
             </div>
           </div>
+
+          <!-- POST 5 -->
+          <div class="card mb-3">
+            <div class="card-body">
+              <strong>Dog Lovers</strong>
+              <p>Dogs make everything better 🐕</p>
+              <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=60" class="post-image">
+              <div class="post-actions mt-2">
+                <span class="like-btn" onclick="toggleLike(this)">
+                  ❤️ <span class="like-text">Like</span> (<span class="like-count">0</span>)
+                </span>
+                <span onclick="alert('Comment soon')">💬 Comment</span>
+                <span onclick="alert('Shared')">🔁 Share</span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <!-- MESSAGES SECTION -->
-      <section id="messages">
-        <h4>Messages</h4>
-        <div class="card mb-3">
-          <div class="card-body">
-            <p>No messages yet 📭</p>
-            <button class="btn btn-outline-primary btn-sm" onclick="alert('Messaging coming soon')">
-              Start Conversation
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- BOOKMARKS SECTION -->
+      <!-- BOOKMARKS -->
       <section id="bookmarks">
         <h4>Bookmarks</h4>
-        <div class="card mb-3">
-          <div class="card-body">
-            <p>You haven’t saved any posts yet.</p>
-          </div>
-        </div>
+        <p>No bookmarks yet.</p>
       </section>
 
     </div>
 
-    <!-- RIGHT SIDEBAR -->
+    <!-- RIGHT SIDEBAR WITH AVATARS -->
     <div class="col-md-3 d-none d-md-block">
       <div class="sidebar">
-        <strong>Suggested Users</strong>
-        <p class="mt-3">Puppy_Fan</p>
-        <p>Code_Master</p>
-        <p>Nature_Lover</p>
+        <h6>Suggested Users</h6>
+
+        <div class="d-flex align-items-center mt-3">
+          <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=80&q=60"
+               class="avatar me-2">
+          <span>Puppy_Fan</span>
+        </div>
+
+        <div class="d-flex align-items-center mt-2">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=80&q=60"
+               class="avatar me-2">
+          <span>Code_Master</span>
+        </div>
+
+        <div class="d-flex align-items-center mt-2">
+          <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=80&q=60"
+               class="avatar me-2">
+          <span>Nature_Lover</span>
+        </div>
+
       </div>
     </div>
 
   </div>
 </div>
+
+<!-- SCRIPT -->
+<script>
+  const imageInput = document.getElementById("imageInput");
+  const canvas = document.getElementById("imageCanvas");
+  const ctx = canvas.getContext("2d");
+  const postText = document.getElementById("postText");
+
+  imageInput.addEventListener("change", () => {
+    const file = imageInput.files[0];
+    if (!file) return;
+
+    const img = new Image();
+    img.onload = () => {
+      canvas.style.display = "block";
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const ratio = Math.min(canvas.width / img.width, canvas.height / img.height);
+      const w = img.width * ratio;
+      const h = img.height * ratio;
+
+      ctx.drawImage(img, (canvas.width - w) / 2, (canvas.height - h) / 2, w, h);
+    };
+    img.src = URL.createObjectURL(file);
+  });
+
+  function createPost() {
+    if (canvas.style.display === "none") {
+      alert("Please select an image");
+      return;
+    }
+
+    const imageData = canvas.toDataURL("image/png");
+    const text = postText.value.trim();
+    const feed = document.getElementById("feed");
+
+    const postHTML = `
+      <div class="card mb-3">
+        <div class="card-body">
+          <strong>You</strong>
+          ${text ? `<p>${text}</p>` : ""}
+          <img src="${imageData}" class="post-image">
+          <div class="post-actions mt-2">
+            <span class="like-btn" onclick="toggleLike(this)">
+              ❤️ <span class="like-text">Like</span> (<span class="like-count">0</span>)
+            </span>
+            <span onclick="alert('Comment soon')">💬 Comment</span>
+            <span onclick="alert('Shared')">🔁 Share</span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    feed.insertAdjacentHTML("afterbegin", postHTML);
+
+    postText.value = "";
+    imageInput.value = "";
+    canvas.style.display = "none";
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+  function toggleLike(el) {
+    const countEl = el.querySelector(".like-count");
+    const textEl = el.querySelector(".like-text");
+    let count = parseInt(countEl.innerText);
+
+    if (el.classList.contains("liked")) {
+      el.classList.remove("liked");
+      textEl.innerText = "Like";
+      countEl.innerText = count - 1;
+    } else {
+      el.classList.add("liked");
+      textEl.innerText = "Liked";
+      countEl.innerText = count + 1;
+    }
+  }
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
