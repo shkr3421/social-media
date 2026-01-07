@@ -85,8 +85,53 @@
     section {
       scroll-margin-top: 100px;
     }
+
+    .comment {
+      background: #f1f1f1;
+      padding: 6px 10px;
+      border-radius: 8px;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
   </style>
 </head>
+
+<!-- SHARE MODAL -->
+<div class="modal fade" id="shareModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Share with</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="list-group">
+          <button class="list-group-item list-group-item-action"
+                  onclick="shareWithUser('Puppy_Fan')">
+            🐶 Puppy_Fan
+          </button>
+
+          <button class="list-group-item list-group-item-action"
+                  onclick="shareWithUser('Code_Master')">
+            💻 Code_Master
+          </button>
+
+          <button class="list-group-item list-group-item-action"
+                  onclick="shareWithUser('Nature_Lover')">
+            🌿 Nature_Lover
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <body>
 
 <!-- NAVBAR -->
@@ -164,35 +209,73 @@
 
           <!-- POST 1 -->
           <div class="card mb-3">
-            <div class="card-body">
-              <strong>Nature Lover</strong>
-              <p>Peaceful mountain vibes 🌄</p>
-              <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=60" class="post-image">
-              <div class="post-actions mt-2">
-                <span class="like-btn" onclick="toggleLike(this)">
-                  ❤️ <span class="like-text">Like</span> (<span class="like-count">0</span>)
-                </span>
-                <span onclick="alert('Comment soon')">💬 Comment</span>
-                <span onclick="alert('Shared')">🔁 Share</span>
+          <div class="card-body">
+            <strong>Nature Lover</strong>
+            <p>Peaceful mountain vibes 🌄</p>
+
+            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=60"
+                class="post-image">
+
+            <div class="post-actions mt-2">
+              <span class="like-btn" onclick="toggleLike(this)">
+                ❤️ <span class="like-text">Like</span> (<span class="like-count">0</span>)
+              </span>
+              <span onclick="toggleComment(this)">💬 Comment</span>
+              <span onclick="openShareModal(this)">🔁 Share</span>
+
+            </div>
+
+              <!-- ✅ ADD COMMENT SECTION RIGHT HERE -->
+              <div class="comment-section mt-2" style="display:none;">
+                <input type="text"
+                      class="form-control form-control-sm mb-2"
+                      placeholder="Write a comment...">
+
+                <button class="btn btn-sm btn-primary"
+                        onclick="addComment(this)">Send</button>
+
+                <div class="comment-list mt-2"></div>
               </div>
+              <!-- ✅ COMMENT SECTION END -->
+
             </div>
           </div>
 
-          <!-- POST 2 -->
-          <div class="card mb-3">
-            <div class="card-body">
+
+      <!-- POST 2 -->
+         <div class="card mb-3">
+        <div class="card-body">
               <strong>Puppy World</strong>
               <p>Cute white puppy 🤍🐶</p>
-              <img src="https://images.unsplash.com/photo-1601758125946-6ec2ef64daf8?auto=format&fit=crop&w=900&q=60" class="post-image">
+
+              <img src="https://images.unsplash.com/photo-1601758125946-6ec2ef64daf8?auto=format&fit=crop&w=900&q=60"
+                  class="post-image">
+
               <div class="post-actions mt-2">
                 <span class="like-btn" onclick="toggleLike(this)">
                   ❤️ <span class="like-text">Like</span> (<span class="like-count">0</span>)
                 </span>
-                <span onclick="alert('Comment soon')">💬 Comment</span>
-                <span onclick="alert('Shared')">🔁 Share</span>
+                <span onclick="toggleComment(this)">💬 Comment</span>
+               <span onclick="openShareModal(this)">🔁 Share</span>
+
               </div>
+
+              <!-- ✅ ADD COMMENT SECTION HERE -->
+              <div class="comment-section mt-2" style="display:none;">
+                <input type="text"
+                      class="form-control form-control-sm mb-2"
+                      placeholder="Write a comment...">
+
+                <button class="btn btn-sm btn-primary"
+                        onclick="addComment(this)">Send</button>
+
+                <div class="comment-list mt-2"></div>
+              </div>
+              <!-- ✅ COMMENT SECTION END -->
+
             </div>
           </div>
+
 
           <!-- POST 3 -->
           <div class="card mb-3">
@@ -204,9 +287,25 @@
                 <span class="like-btn" onclick="toggleLike(this)">
                   ❤️ <span class="like-text">Like</span> (<span class="like-count">0</span>)
                 </span>
-                <span onclick="alert('Comment soon')">💬 Comment</span>
-                <span onclick="alert('Shared')">🔁 Share</span>
+                <span onclick="toggleComment(this)">💬 Comment</span>
+
+                <span onclick="openShareModal(this)">🔁 Share</span>
+
               </div>
+
+              <!-- ✅ ADD COMMENT SECTION HERE -->
+              <div class="comment-section mt-2" style="display:none;">
+                <input type="text"
+                      class="form-control form-control-sm mb-2"
+                      placeholder="Write a comment...">
+
+                <button class="btn btn-sm btn-primary"
+                        onclick="addComment(this)">Send</button>
+
+                <div class="comment-list mt-2"></div>
+              </div>
+              <!-- ✅ COMMENT SECTION END -->
+
             </div>
           </div>
 
@@ -220,9 +319,23 @@
                 <span class="like-btn" onclick="toggleLike(this)">
                   ❤️ <span class="like-text">Like</span> (<span class="like-count">0</span>)
                 </span>
-                <span onclick="alert('Comment soon')">💬 Comment</span>
-                <span onclick="alert('Shared')">🔁 Share</span>
+                <span onclick="toggleComment(this)">💬 Comment</span>
+
+                <span onclick="openShareModal(this)">🔁 Share</span>
+
               </div>
+              <!-- ✅ ADD COMMENT SECTION HERE -->
+              <div class="comment-section mt-2" style="display:none;">
+                <input type="text"
+                      class="form-control form-control-sm mb-2"
+                      placeholder="Write a comment...">
+
+                <button class="btn btn-sm btn-primary"
+                        onclick="addComment(this)">Send</button>
+
+                <div class="comment-list mt-2"></div>
+              </div>
+              <!-- ✅ COMMENT SECTION END -->
             </div>
           </div>
 
@@ -236,9 +349,23 @@
                 <span class="like-btn" onclick="toggleLike(this)">
                   ❤️ <span class="like-text">Like</span> (<span class="like-count">0</span>)
                 </span>
-                <span onclick="alert('Comment soon')">💬 Comment</span>
-                <span onclick="alert('Shared')">🔁 Share</span>
+                <span onclick="toggleComment(this)">💬 Comment</span>
+
+                <span onclick="openShareModal(this)">🔁 Share</span>
+
               </div>
+              <!-- ✅ ADD COMMENT SECTION HERE -->
+              <div class="comment-section mt-2" style="display:none;">
+                <input type="text"
+                      class="form-control form-control-sm mb-2"
+                      placeholder="Write a comment...">
+
+                <button class="btn btn-sm btn-primary"
+                        onclick="addComment(this)">Send</button>
+
+                <div class="comment-list mt-2"></div>
+              </div>
+              <!-- ✅ COMMENT SECTION END -->
             </div>
           </div>
 
@@ -318,21 +445,36 @@
     const feed = document.getElementById("feed");
 
     const postHTML = `
-      <div class="card mb-3">
-        <div class="card-body">
-          <strong>You</strong>
-          ${text ? `<p>${text}</p>` : ""}
-          <img src="${imageData}" class="post-image">
-          <div class="post-actions mt-2">
-            <span class="like-btn" onclick="toggleLike(this)">
-              ❤️ <span class="like-text">Like</span> (<span class="like-count">0</span>)
-            </span>
-            <span onclick="alert('Comment soon')">💬 Comment</span>
-            <span onclick="alert('Shared')">🔁 Share</span>
-          </div>
+    <div class="card mb-3">
+      <div class="card-body">
+        <strong>You</strong>
+        ${text ? `<p>${text}</p>` : ""}
+        <img src="${imageData}" class="post-image">
+
+        <div class="post-actions mt-2">
+          <span class="like-btn" onclick="toggleLike(this)">
+            ❤️ <span class="like-text">Like</span> (<span class="like-count">0</span>)
+          </span>
+          <span onclick="toggleComment(this)">💬 Comment</span>
+          <span onclick="openShareModal(this)">🔁 Share</span>
+
         </div>
+
+        <!-- ✅ COMMENT SECTION FOR NEW POSTS -->
+        <div class="comment-section mt-2" style="display:none;">
+          <input type="text"
+                class="form-control form-control-sm mb-2"
+                placeholder="Write a comment...">
+          <button class="btn btn-sm btn-primary"
+                  onclick="addComment(this)">Send</button>
+          <div class="comment-list mt-2"></div>
+        </div>
+        <!-- ✅ COMMENT SECTION END -->
+
       </div>
-    `;
+    </div>
+  `;
+
 
     feed.insertAdjacentHTML("afterbegin", postHTML);
 
@@ -356,6 +498,48 @@
       textEl.innerText = "Liked";
       countEl.innerText = count + 1;
     }
+  }
+    function toggleComment(el) {
+    const postBody = el.closest(".card-body");
+    const commentSection = postBody.querySelector(".comment-section");
+
+    if (commentSection.style.display === "none") {
+      commentSection.style.display = "block";
+    } else {
+      commentSection.style.display = "none";
+    }
+  }
+
+  function addComment(btn) {
+    const commentSection = btn.closest(".comment-section");
+    const input = commentSection.querySelector("input");
+    const list = commentSection.querySelector(".comment-list");
+
+    if (input.value.trim() === "") return;
+
+    const div = document.createElement("div");
+    div.className = "comment";
+    div.innerText = input.value;
+
+    list.appendChild(div);
+    input.value = "";
+
+    alert("Comment sent");
+  }
+
+  let currentPostToShare = null;
+
+  function openShareModal(el) {
+    currentPostToShare = el.closest(".card");
+    const modal = new bootstrap.Modal(document.getElementById("shareModal"));
+    modal.show();
+  }
+
+  function shareWithUser(username) {
+    alert(`Post shared with ${username}`);
+    const modalEl = document.getElementById("shareModal");
+    const modal = bootstrap.Modal.getInstance(modalEl);
+    modal.hide();
   }
 </script>
 
